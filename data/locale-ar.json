@@ -1,0 +1,56 @@
+{
+    "SELECT" : "تحديد",
+    "LANGUAGE" : "لغة",
+    "LANGUAGE_OPTION" : {
+        "ENGLISH" : "الإنجليزية",
+        "ARABIC" : "عربى"
+    },
+    "LOGIN":{
+        "FORM-TITLE":" سجل الدخول للمتابعة",
+        "PLACEHOLDER-EMAIL":"أدخل البريد الإلكتروني",
+        "PLACEHOLDER-PASSWORD":"أدخل كلمة المرور",
+        "REMEMBER-ME":"تذكرنى",
+        "FORGOT-PASSWORD":"نسيت رقمك السري ؟",
+        "LOGIN-LABEL":"تسجيل الدخول",
+        "SIGNUP-LABEL":"هل تحتاج إلى الاشتراك؟",
+        "REGISTER-LABEL":"سجل الان",
+        "ERROR-MESSAGE-REQUIRED":"هذه الخانة مطلوبه.",
+        "ERROR-MESSAGE-VALID":"يجب أن يكون هذا الحقل عنوان بريد إلكتروني صالحا.",
+        "ERROR-MESSAGE-INCORRECT-CREDENTIALS":"أوراق غير صحيحة.",
+        "ERROR-MESSAGE-SERVER-ERROR":"خطأ في طلب الخادم."      
+     },
+     "FORGOT" : {
+        "FORM-TITLE" :"باسورد ريسي",  
+        "FORM-HINT" : "املأ كلمة المرور الجديدة لإعادة تعيين كلمة المرور.",  
+        "FORM-PASSWORD":"أدخل كلمة المرور",
+        "FORM-RETYPE-PASSWORD":"أدخل كلمة المرور مرة أخرى.",     
+        "FORM-BUTTON-LABEL":"إعادة تعيين",
+        "ERROR-MESSAGE-REQUIRED":"هذه الخانة مطلوبه.",
+        "ERROR-MESSAGE-INVALID-INPUT":"يجب أن تطابق الإدخال 'a-زا-Z0-9' و 6-10 طول.",
+        "ERROR-MESSAGE-RETYPE-PASSWORD":"يجب أن تكون هذه الإدخال هي نفس كلمة المرور.",
+        "ERROR-MESSAGE-SERVER-ERROR":"خطأ في طلب الخادم.",
+        "ERROR-MESSAGE-RESET-PASSWORD-FAILURE":"أخفق إعادة تعيين كلمة المرور :( الرجاء إعادة المحاولة."
+    },
+    "REGISTER" : {
+        "FORM-TITLE" :"تسجيل حساب",
+        "OPTION" : {
+            "LOGIN":"تسجيل الدخول",
+            "PERSONAL":"الشخصية",
+            "ADDRESS":"عنوان",
+            "COMPANY":"شركة",
+            "DONE":"فعله!"
+        },
+        "LOGIN": {
+            "EMAIL" : "عنوان البريد الإلكتروني*",
+            "EMAIL-PLACEHOLDER":"john@snow.com",
+            "PASSWORD":"Password*",
+            "PASSWORD-PLACEHOLDER":"Your password",
+            "RETYPE-PASSWORD":"Retype Password*",
+            "RETYPE-PASSWORD-PLACEHOLDER":"Confirmed password",
+            "ROLE":"Role*",
+            "ROLE-OPTION-BUYER":"Buyer",
+            "ROLE-OPTION-SELLER":"Seller"
+        }
+    }
+   
+}

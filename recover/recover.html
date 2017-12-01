@@ -1,0 +1,56 @@
+<div class="block-center center-block mt-xl wd-xl" ng-controller="recoverController as recover">
+        <!-- START panel-->
+        <div class="panel panel-dark panel-flat">
+                <div class="panel-heading text-center" style="height: 90px;">
+                  <a href="#">
+                      <img class="block-center img-rounded" src="img/CM.png" style="HEIGHT: 120px;
+                      margin-top: -23px;" alt="Image" />
+                  </a>
+                </div>
+           <div class="panel-body">
+              <p class="text-center pv" translate="FORGOT.FORM-TITLE"></p>
+              <form class="form-validate" ng-submit="recover.reset(recoverForm)" role="form" name="recoverForm" novalidate="">
+                 <p class="text-center" translate="FORGOT.FORM-HINT"></p>
+                 <!-- <div class="form-group has-feedback">
+                    <label class="text-muted">Email address</label>
+                    <input class="form-control" type="email" name="email" placeholder="Enter email" autocomplete="off" ng-model="recover.email" required="" />
+                    <span class="fa fa-envelope form-control-feedback text-muted"></span>
+                    <span class="text-danger" ng-show="recover.recoverForm.email.$dirty && recover.recoverForm.email.$error.required">This field is required</span>
+                    <span class="text-danger" ng-show="recover.recoverForm.email.$dirty && recover.recoverForm.email.$error.email">This field must be a valid email address</span>
+                 </div> -->
+                 <div class="form-group has-feedback">
+                        <input class="form-control" id="exampleInputPassword1" type="password" name="account_password1" placeholder="{{'FORGOT.FORM-PASSWORD'| translate}}" ng-model="recover.password"
+                        ng-model-options="{ debounce: 300 }" required maxlength="15"/>
+                        <span class="fa fa-lock form-control-feedback text-muted"></span>
+                        <span style="float: right;
+                        margin-top: -28px;
+                        padding-right: 30px;" ng-if="!recover.passwordshow" ng-click="recover.passwordshow = true;recover.changePasswordType('text')"><em class="fa fa-eye"></em></span>
+                        <span style="float: right;
+                        margin-top: -28px;
+                        padding-right: 30px;" ng-if="recover.passwordshow" ng-click="recover.passwordshow = false;recover.changePasswordType('password')"><em class="fa fa-eye-slash"></em></span>
+                        <span class="text-danger" ng-show="recoverForm.account_password1.$dirty && recoverForm.account_password1.$error.required" translate="FORGOT.ERROR-MESSAGE-REQUIRED"></span>
+                        <span class="text-danger" ng-show="recoverForm.account_password1.$dirty && recoverForm.account_password1.$error.maxlength" translate="FORGOT.ERROR-MESSAGE-INVALID-INPUT"></span>                     
+                </div>
+                 <div class="form-group has-feedback">
+                        <input class="form-control" id="exampleInputPassword2" type="password" name="account_password2" placeholder="{{'FORGOT.FORM-RETYPE-PASSWORD' | translate }}" ng-model="recover.retypePassword"
+                        ng-model-options="{ debounce: 300 }" required maxlength="15"/>
+                        <span class="fa fa-lock form-control-feedback text-muted"></span>
+                        <span class="text-danger" ng-show="recoverForm.account_password2.$dirty && recoverForm.account_password2.$error.required" translate="FORGOT.ERROR-MESSAGE-REQUIRED"><br/></span>
+                        <span class="text-danger" ng-show="recoverForm.account_password2.$dirty && recoverForm.account_password2.$error.maxlength" translate="FORGOT.ERROR-MESSAGE-INVALID-INPUT"><br/></span>
+                        <span class="text-danger" ng-show="recover.retypePassword !== recover.password && recoverForm.account_password2.$dirty" translate="FORGOT.ERROR-MESSAGE-RETYPE-PASSWORD"><br/></span>                        
+                 </div>
+                 <div class="alert alert-danger text-center" ng-show="login.authMsg">{{login.authMsg}}</div>
+                 <button class="btn btn-danger btn-block" type="submit" translate="FORGOT.FORM-BUTTON-LABEL"></button>
+              </form>
+           </div>
+        </div>
+        <!-- END panel-->
+        <div class="p-lg text-center">
+           <span>&copy;</span>
+           <span ng-bind="app.year"></span>
+           <span>-</span>
+           <span ng-bind="app.name"></span>
+           <br/>
+           <span ng-bind="app.description"></span>
+        </div>
+     </div>

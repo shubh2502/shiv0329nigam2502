@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html ng-app="coffeeMart">
+
+<head>
+
+  <meta charset="UTF-8">
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <meta name="google-signin-client_id" content="671562584556-ckb59d3hmb9qtn1a3gjnimlfc2skt3m5.apps.googleusercontent.com">
+  <script async defer src="https://apis.google.com/js/api.js">
+
+  </script>
+  <!--scripts from libraries-->
+  <script src="./common/library/jquery/jquery-3.1.1.min.js"></script>
+  <script src="./common/library/bootstrap/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+  <script src="./node_modules/angular/angular.js"></script>
+  <script src="./common/library/angular-ui-router/ui-router.js"></script>
+  <script src="./common/library/angular-translate/angular-translate.js"></script>
+  <script src="./common/library/angular-cookies/angular-cookies.js"></script>
+  <script src='./common/service/common.service.js'></script>
+  <script src="./common/library/angular/loadModules.js"></script>
+
+  <!-- <script src="./common/library/angular-sanitize/angular-sanitize.js"></script> -->
+  <!-- <script src="./common/library/angular-translate-static-files/angular-translate-static-files.js"></script> -->
+  <!-- <script src="./common/library/angular-dynamic-translate/angular-dynamic-translate.js"></script> -->
+
+
+  <!--script files-->
+  <script src="./app.js"></script>
+  <!-- signup -->
+  <script src="./signup/signup.js"></script>
+  <script src="./config/config.js"></script>
+  <script src="./signup/signupwizard.directive.js"></script>
+  <script src="./signup/signupservice.js"></script>
+  <!-- login -->
+  <script src="./login/login.controller.js"></script>
+  <script src="./login/login.service.js"></script>
+  <!-- recover -->
+  <script src="./recover/recover.controller.js"></script>
+  <script src="./recover/recover.service.js"></script>
+  <!-- home -->
+  <script src="./home/home.controller.js"></script>
+
+
+  <!--common-->
+  <!-- <script src='./common/locale-en.json'></script> -->
+
+  <!--common json-->
+  <!-- <script src='./data/service/notify.service.js'></script>   -->
+
+  <!--cdn files-->
+  <script src=https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.min.js></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-translate-handler-log/2.16.0/angular-translate-handler-log.min.js"></script>
+
+  <!--css files-->
+  <!-- <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700"> -->
+  <link rel="stylesheet" type="text/css" href="./common/library/bootstrap/bootstrap-3.3.7-dist/css/bootstrap.min.css" />
+  <!-- <link rel="stylesheet" type="text/css" href="https://bootswatch.com/4/cerulean/bootstrap.min.css"></link> -->
+  <link rel="stylesheet" href="./app.css">
+  <link rel="stylesheet" href="./login/login.css">
+  <link rel="stylesheet" type="text/css" href="./signup/signup.css" />
+  <link rel='stylesheet' type='text/css' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
+</head>
+
+<body>
+  <div ng-controller="appController as appCtrl">
+    <ul class='slideshow' id="slide-show">
+      <li>
+        <span>coffee pic 1</span>
+      </li>
+      <li>
+        <span>coffee pic 2</span>
+      </li>
+      <li>
+        <span>coffee pic 3</span>
+      </li>
+      <li>
+        <span>coffee pic 4</span>
+      </li>
+      <li>
+        <span>coffee pic 5</span>
+      </li>
+    </ul>
+
+    <div class="btn-group float-right" uib-dropdown="dropdown" style="top:-40px;" id="language-btn">
+      <button class="btn btn-default" uib-dropdown-toggle="" style="margin-right: 28px;
+      display: inline-block;
+      margin-bottom: 0;
+      font-weight: normal;
+      text-align: center;
+      vertical-align: middle;
+      touch-action: manipulation;
+      cursor: pointer;
+      background-image: none;
+      border: 1px solid transparent;
+      white-space: nowrap;
+      padding: 6px 16px;
+      font-size: 14px;
+      line-height: 1.52857143;
+      border-radius: 4px;
+      -webkit-user-select: none;" ng-click="appCtrl.toggleDropdown();">
+      <span translate="LANGUAGE"></span>
+      <b class="caret"></b>
+      </button>
+      <ul id="lang-option" class="dropdown-menu animated rubberBand" role="menu">
+        <li><a translate="LANGUAGE_OPTION.ARABIC" ng-click="appCtrl.changeLanguage('ar')"></a>
+        </li>
+        <li><a translate="LANGUAGE_OPTION.ENGLISH" ng-click="appCtrl.changeLanguage('en')"></a>
+        </li>
+      </ul>
+    </div>
+    <ui-view>
+    </ui-view>
+  </div>
+
+</body>
+
+</html>

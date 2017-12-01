@@ -1,0 +1,354 @@
+
+<div class="" ng-controller="signupCntrl as vm">
+
+  <!-- START row-->
+  <div class="row ">
+    <div class="col-lg-6 center-block">
+        <div class="panel panel-dark panel-flat">
+            <div class="panel-heading text-center" style="height: 90px;">
+              <a href="#">
+                  <img class="block-center img-rounded" src="img/CM.png" style="HEIGHT: 120px;
+                  margin-top: -23px;" alt="Image" />
+              </a>
+      </div>
+      <!-- START panel-->
+      <div class="panel panel-default">
+        <div class="panel-heading text-format" translate="REGISTER.FORM-TITLE"></div>
+        <div class="panel-body">
+          <form class="form-validate mb-lg" role="form"  novalidate="" name="userForm" ng-submit="vm.register(vm.user,userForm)" form-wizard=""  method="POST" steps="5">
+
+            <div class="form-wizard wizard-vertical">
+
+              <!-- START wizard steps indicator-->
+              <ol>
+                <li ng-class="{'active':wizard.active(1)}" ng-click="wizard.go(1)">
+                  <h4 class="mb0" translate="REGISTER.OPTION.LOGIN"></h4>
+                </li>
+
+                <li ng-class="{'active':wizard.active(2)}" ng-click="wizard.go(2)">
+                  <h4 class="mb0" translate="REGISTER.OPTION.PERSONAL"></h4>
+                </li>
+
+                <li ng-class="{'active':wizard.active(3)}" ng-click="wizard.go(3)">
+                  <h4 class="mb0" translate="REGISTER.OPTION.ADDRESS"></h4>
+                </li>
+
+                <li ng-if='vm.user.seller' ng-class="{'active':wizard.active(4)}" ng-click="wizard.go(4)">
+                  <h4 class="mb0" translate="REGISTER.OPTION.COMPANY"></h4>
+                </li>
+
+                <li ng-class="{'active':wizard.active(5)}" ng-click="wizard.go(5)">
+                  <h4 class="mb0" translate="REGISTER.OPTION.DONE"></h4>
+                </li>
+              </ol>
+              <!-- END wizard steps indicator-->
+
+              <!-- START Wizard Step inputs-->
+              <div ng-show="wizard.active(1)">
+
+                <fieldset>
+
+                  <div class="form-group has-feedback">
+                    <label class="text-muted" translate="REGISTER.LOGIN.EMAIL"></label>
+                    <input class="form-control" ng-pattern="/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/"
+                      type="email" name="email" placeholder="{{ 'REGISTER.LOGIN.EMAIL-PLACEHOLDER' | translate }}" ng-model='vm.user.email' maxlength="50" ng-model-options="{ debounce: 300 }"
+                      required=""/>
+                    <span class="fa fa-envelope form-control-feedback text-muted"></span>
+                    <!-- error messages -->
+                    <span class="text-danger" ng-show="userForm.email.$dirty && userForm.email.$error.required" translate="REGISTER.LOGIN.LOGIN-EMAIL-REQUIRED"></span>
+                    <span class="text-danger" ng-show="userForm.email.$dirty && userForm.email.$error.email" translate="REGISTER.LOGIN.LOGIN-EMAIL-VALID"></span>
+                  </div>
+
+                  <div class="form-group has-feedback" id='PasswordForm'>
+
+                    <label class="text-muted" translate="REGISTER.LOGIN.PASSWORD"></label>
+                    <div class="controls">
+                      <input class="form-control" id='password' type="password" name="password" placeholder="{{ 'REGISTER.LOGIN.PASSWORD' | translate }}" ng-model-options="{ debounce: 300 }"
+                        ng-model='vm.user.password' ng-pattern="/^[a-zA-Z0-9]{6,15}$/" maxlength="15" required=""/>
+                      <!-- hint show/hide icon -->
+                      <span class="show-hide" ng-if="!vm.passwordshow" ng-click="vm.passwordshow = true;vm.changePasswordType('text')"><em class="fa fa-eye"></em></span>
+                      <span class="show-hide" ng-if="vm.passwordshow" ng-click="vm.passwordshow = false;vm.changePasswordType('password')"><em class="fa fa-eye-slash"></em></span>
+                      <!-- <span class="fa fa-lock form-control-feedback text-muted"></span> -->
+                      
+                      <!-- error messages -->
+                      <span class="text-danger" ng-show="userForm.password.$dirty && userForm.password.$error.required" translate="REGISTER.LOGIN.LOGIN-PASSWORD-REQUIRED"></span>
+                      <span class="text-danger" ng-show="userForm.password.$dirty && userForm.password.$error.pattern" translate="REGISTER.LOGIN.LOGIN-PASSWORD-VALID-INPUT"></span>
+                    </div>
+
+                    <!-- Password Strength: begins -->
+                    <div id="password-strength">
+
+                      <!-- Strength Boxes: Box1 -->
+                      <div class="box box1">
+                        <div class="bar-text"></div>
+                        <div class="bar"></div>
+                      </div>
+
+                      <!-- Strength Boxes: Box2 -->
+                      <div class="box box2">
+                        <div class="bar"></div>
+                      </div>
+
+                      <!-- Strength Boxes: Box3 -->
+                      <div class="box box3">
+                        <div class="bar"></div>
+                      </div>
+
+                      <!-- Strength Boxes: Box4 -->
+                      <div class="box box4">
+                        <div class="bar"></div>
+                      </div>
+                      <!-- Password Strength: ends -->
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+
+                    <label translate="REGISTER.LOGIN.RETYPE-PASSWORD"></label>
+                    <div class="controls">
+                      <input class="form-control" type="password" name="password2" placeholder="{{'REGISTER.LOGIN.RETYPE-PASSWORD-PLACEHOLDER' | translate}}" ng-model="vm.user.retypePassword"
+                        ng-keyup="vm.clickcheck(vm.user)" ng-pattern="/^[a-zA-Z0-9]{6,15}$/" maxlength="15" ng-model-options="{ debounce: 300 }" required maxlength="30" />
+                        <span class="fa fa-lock form-control-feedback text-muted" style="position: relative; float: right;  margin-top: -33px;"></span>                        
+                      <p class="text-danger" ng-show="userForm.password2.$error.pattern && userForm.password2.$dirty" translate="REGISTER.LOGIN.RETRY-VALID-PASSWORD"></p>
+                      <p class="text-danger" ng-show="userForm.password2.$dirty && userForm.password2.$error.required" translate="REGISTER.LOGIN.RETRY-PASSWORD-REQUIRED"></p>
+                      <span class="text-danger" ng-show="vm.user.retypePassword !== vm.user.password && userForm.password2.$dirty" translate="REGISTER.LOGIN.RETRY-PASSWORD-MATCH-PASSWORD-INVALID"><br/></span>                                              
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label translate="REGISTER.LOGIN.ROLE"></label>
+                    <div class="controls">
+                          <div class="col-sm-10">
+                              <label class="radio-inline c-radio">
+                                 <input id="inlineradio1" ng-model="vm.user.buyer" ng-click="vm.toogle(vm.user.buyer,'buyer');" type="radio" name="i-radio" value="option1" checked/>
+                                 <span class="fa fa-circle"></span>{{'REGISTER.LOGIN.ROLE-OPTION-BUYER'| translate}}</label>
+                              <label class="radio-inline c-radio float-right">
+                                 <input id="inlineradio2"  ng-model="vm.user.seller" ng-click="vm.toogle(vm.user.seller,'seller');" type="radio" name="i-radio" value="option2" />
+                                 <span class="fa fa-circle"></span>{{"REGISTER.LOGIN.ROLE-OPTION-SELLER" | translate}}</label>
+                           </div>
+
+                      <p class="text-danger" style="clear: both; text-align: -webkit-center" ng-show="!vm.buyer && !vm.user.seller && userForm.i-radio.$dirty" translate="ROLE-INVALID-ERROR"></p>
+                    </div>
+                  </div>
+
+                </fieldset>
+
+                <ul class="pager">
+                  <li class="next">
+                    <a href="" id='next1' 
+                      ng-click="wizard.go(2)" ><span translate="REGISTER.NEXT-LABEL"></span><span>&rarr;</span></a>
+                  </li>
+                </ul>
+
+              </div>
+              <!-- END Wizard Step inputs-->
+              <!-- START Wizard Step inputs-->
+              <div ng-show="wizard.active(2)">
+                <fieldset>
+                  <div class="form-group">
+                    <label translate="REGISTER.PERSONAL.FIRSTNAME-LABEL"></label>
+                    <input class="form-control" ng-model-options="{ debounce: 300 }" ng-minlength="3"
+                      ng-maxlength="15" required type="text" name="first" placeholder="{{'REGISTER.PERSONAL.FIRSTNAME-PLACEHOLDER' | translate}}" ng-model="vm.user.firstName" />
+                    <p class="text-danger" ng-show="userForm.first.$dirty && (userForm.first.$error.minlength || userForm.first.$error.maxlength)"  translate="REGISTER.PERSONAL.ERROR-INVALID-FIRSTNAME"></p>
+                    <p class="text-danger" ng-show="userForm.first.$dirty && userForm.first.$error.required" translate="REGISTER.PERSONAL.ERROR-REQUIRED-FIRSTNAME"></p>
+                  </div>
+                  <div class="form-group">
+                    <label translate="REGISTER.PERSONAL.LASTNAME-LABEL"></label>
+                    <input class="form-control" ng-model-options="{ debounce: 300 }" type="text" name="last" placeholder="{{'REGISTER.PERSONAL.LASTNAME-PLACEHOLDER' | translate}}" ng-model="vm.user.lastName"
+                    ng-minlength="3" ng-maxlength="15"/>
+                    <p class="text-danger" ng-show="(userForm.last.$error.minlength || userForm.last.$error.maxlength) && userForm.last.$dirty" translate="REGISTER.PERSONAL.ERROR-INVALID-LASTNAME"></p>
+                    <!-- <p class="text-danger" ng-show="userForm.last-name.$dirty && userForm.last-name.$error.required">You need to retype your password.</p>  -->
+                  </div>
+                  <div class="form-group">
+                    <label translate="REGISTER.PERSONAL.PHONE-NUMBER-LABEL"></label>
+                    <input class="form-control" type="number" ng-model-options="{ debounce: 300 }" required ng-minlength="10" ng-maxlength="10"
+                      name="phone" placeholder="{{'REGISTER.PERSONAL.PHONENUMBER-PLACEHOLDER' | translate}}" ng-model="vm.user.phone" />
+                    <p class="text-danger" ng-show="(userForm.phone.$error.minlength || userForm.phone.$error.maxlength) && userForm.phone.$dirty" translate="REGISTER.PERSONAL.ERROR-INVALID-PHONE"></p>
+                    <p class="text-danger" ng-show="userForm.phone.$dirty && userForm.phone.$error.required" translate="REGISTER.PERSONAL.ERROR-REQUIRED-PHONENUMBER"></p>
+                  </div>
+                </fieldset>
+                <ul class="pager">
+                  <li class="previous">
+                    <a href="" ng-click="wizard.go(1)"><span>&larr;<span translate="REGISTER.PREVIOUS-LABEL"></span></span></a>
+                  </li>
+                  <li class="next"><a href="" ng-click="wizard.go(3)"><span translate="REGISTER.NEXT-LABEL"></span><span>&rarr;</span></a>
+                  </li>
+                </ul>
+              </div>
+              <!-- END Wizard Step inputs-->
+              <!-- START Wizard Step inputs-->
+              <div ng-show="wizard.active(3)">
+                <fieldset>
+
+                  <ul class="nav nav-tabs" id="uladdress">
+                    <li class="active" ng-click="vm.addresscheck($event,'Current',vm.user.current);"><a><span  translate="REGISTER.ADDRESS.CURRENT-LABEL"></span></a></li>
+                    <li ng-if='vm.user.seller' ng-click="vm.addresscheck($event,'Company',vm.user.company);"><a><span  translate="REGISTER.ADDRESS.COMPANY-LABEL"></span></a></li>
+                    <!-- <li  ng-click="vm.addresscheck($event,'Permanent');"><a href="#">Permanent</a></li> -->
+                  </ul>
+                  <div ng-if="vm.addressType === 'Current'">
+                    <div class="form-group">
+                      <label translate="REGISTER.ADDRESS.CURRENT-HOUSE-NO-LABEL"></label>
+                      <input class="form-control" type="text" ng-model="vm.user.current.houseno" ng-minlength="3" ng-maxlength="30" name="houseno"
+                        placeholder="{{'REGISTER.ADDRESS.CURRENT-HOUSE-NO-PLACEHOLDER' | translate}}" required/>
+                      <p class="text-danger" ng-show="(userForm.houseno.$error.minlength || userForm.houseno.$error.maxlength) && userForm.houseno.$dirty" translate="REGISTER.ADDRESS.ERROR-VALID-HOUSE-NO"></p>
+                      <p class="text-danger" ng-show="userForm.houseno.$dirty && userForm.houseno.$error.required" translate="REGISTER.ADDRESS.ERROR-HOUSE-NO-REQUIRED"></p>
+                    </div>
+                    <div class="form-group">
+                      <label translate="REGISTER.ADDRESS.CURRENT-STREET-LABEL"></label>
+                      <input class="form-control" type="text" ng-model="vm.user.current.streetno" ng-minlength="3" ng-maxlength="30" name="streetname"
+                        placeholder="{{ 'REGISTER.ADDRESS.CURRENT-STREET-PLACEHOLDER' | translate }}" required />
+                      <p class="text-danger" ng-show="(userForm.streetname.$error.minlength || userForm.streetname.$error.maxlength) && userForm.streetname.$dirty" translate="REGISTER.ADDRESS.ERROR-VALID-STREET-DETAILS"></p>
+                      <p class="text-danger" ng-show="userForm.streetname.$dirty && userForm.streetname.$error.required" translate="REGISTER.ADDRESS.ERROR-STREET-DETAILS-REQUIRED"></p>
+                    </div>
+                    <div class="form-group">
+                      <label translate="REGISTER.ADDRESS.CURRENT-LANDMARK-LABEL"></label>
+                      <input class="form-control" type="text" ng-model="vm.user.current.landmark" ng-minlength="3" ng-maxlength="30" name="landmark"
+                        placeholder="{{ 'REGISTER.ADDRESS.CURRENT-LANDMARK-PLACEHOLDER' | translate }}" required/>
+                      <p class="text-danger" ng-show="(userForm.landmark.$error.minlength || userForm.landmark.$error.maxlength) && userForm.landmark.$dirty"  translate="REGISTER.ADDRESS.ERROR-VALID-LANDMARK-DETAILS"></p>
+                      <p class="text-danger" ng-show="userForm.landmark.$dirty && userForm.landmark.$error.required"  translate="REGISTER.ADDRESS.ERROR-LANDMARK-DETAILS-REQUIRED"></p>
+                    </div>
+                    <div class="form-group">
+                      <label translate="REGISTER.ADDRESS.CURRENT-COUNTRY-LABEL"></label>
+                      <select class="form-control" ng-change="vm.changeCountry(vm.user.current.country)" ng-model="vm.user.current.country" name="country"
+                        placeholder="" ng-options="x.name for x in vm.address.countries">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                      <label translate="REGISTER.ADDRESS.CURRENT-STATE-LABEL"></label>
+                      <select class="form-control" ng-change="vm.changeState(vm.user.current.state)" ng-model="vm.user.current.state" name="state"
+                        placeholder="Madhya pradesh" ng-options="x.name for x in vm.address.states">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                      <label translate="REGISTER.ADDRESS.CURRENT-CITY-LABEL"></label>
+                      <select class="form-control" ng-change="vm.changeCity(vm.user.current.city)" ng-model="vm.user.current.city" name="city"
+                        placeholder="Ujjain" ng-options="x.name for x in vm.address.cities">
+                    </select>
+                    </div>
+                  </div>                  
+                  <div ng-if="vm.addressType === 'Company'">
+                    <div class="form-group">
+                      <label translate="REGISTER.ADDRESS.COMPANY-HOUSE-NO-LABEL"></label>
+                      <input class="form-control" type="text" ng-model="vm.user.company.houseno" ng-minlength="3" ng-maxlength="30" name="houseno"
+                        placeholder="{{'REGISTER.ADDRESS.COMPANY-HOUSE-NO-PLACEHOLDER' | translate}}" />
+                      <p class="text-danger" ng-show="(userForm.houseno.$error.minlength || userForm.houseno.$error.maxlength) && userForm.houseno.$dirty" translate="REGISTER.ADDRESS.ERROR-VALID-HOUSE-NO" ></p>
+                      <p class="text-danger" ng-show="userForm.houseno.$dirty && userForm.houseno.$error.required" translate="REGISTER.ADDRESS.ERROR-HOUSE-NO-REQUIRED"></p>
+                    </div>
+                    <div class="form-group">
+                      <label translate="REGISTER.ADDRESS.COMPANY-STREET-LABEL"></label>
+                      <input class="form-control" type="text" ng-model="vm.user.company.streetno" ng-minlength="3" ng-maxlength="30" name="streetname"
+                        placeholder="{{ 'REGISTER.ADDRESS.COMPANY-STREET-PLACEHOLDER' | translate }}"  />
+                      <p class="text-danger" ng-show="(userForm.streetname.$error.minlength || userForm.streetname.$error.maxlength) && userForm.streetname.$dirty"  translate="REGISTER.ADDRESS.ERROR-VALID-STREET-DETAILS"></p>
+                      <p class="text-danger" ng-show="userForm.streetname.$dirty && userForm.streetname.$error.required" translate="REGISTER.ADDRESS.ERROR-STREET-DETAILS-REQUIRED"></p>
+                    </div>
+                    <div class="form-group">
+                      <label translate="REGISTER.ADDRESS.COMPANY-LANDMARK-LABEL">Landmark*</label>
+                      <input class="form-control" type="text" ng-model="vm.user.company.landmark" ng-minlength="3" ng-maxlength="30" name="landmark"
+                        placeholder="{{ 'REGISTER.ADDRESS.COMPANY-LANDMARK-PLACEHOLDER' | translate }}" />
+                      <p class="text-danger" ng-show="(userForm.landmark.$error.minlength || userForm.landmark.$error.maxlength) && userForm.landmark.$dirty" translate="REGISTER.ADDRESS.ERROR-VALID-LANDMARK-DETAILS"></p>
+                      <p class="text-danger" ng-show="userForm.landmark.$dirty && userForm.landmark.$error.required"  translate="REGISTER.ADDRESS.ERROR-LANDMARK-DETAILS-REQUIRED"></p>
+                    </div>
+                    <div class="form-group">
+                      <label translate="REGISTER.ADDRESS.COMPANY-COUNTRY-LABEL"></label>
+                      <select class="form-control" ng-change="vm.changeCountry(vm.user.company.country)" ng-model="vm.user.company.country" name="country"
+                        placeholder="India" ng-options="x.name for x in vm.address.countries">
+                                                                                                        </select>
+                    </div>
+                    <div class="form-group">
+                      <label translate="REGISTER.ADDRESS.COMPANY-STATE-LABEL"></label>
+                      <select class="form-control" ng-change="vm.changeState(vm.user.company.state)" ng-model="vm.user.company.state" name="state"
+                        placeholder="Madhya pradesh" ng-options="x.name for x in vm.address.states">
+                                                                                                </select>
+                    </div>
+                    <div class="form-group">
+                      <label translate="REGISTER.ADDRESS.COMPANY-CITY-LABEL"></label>
+                      <select class="form-control" ng-change="vm.changeCity(vm.user.company.city)" ng-model="vm.user.company.city" name="city"
+                        placeholder="Ujjain" ng-options="x.name for x in vm.address.cities">
+                                                                                                </select>
+                    </div>
+                  </div>
+                </fieldset>
+                <ul class="pager">
+                  <li class="previous">
+                    <a href="" ng-click="wizard.go(2)"><span>&larr; <span translate="REGISTER.PREVIOUS-LABEL"></span></span></a>
+                  </li>
+                  <li class="next"><a href="" ng-click="vm.saveAddress(vm.user);vm.user.seller ?wizard.go(4):wizard.go(5)"><span translate="REGISTER.NEXT-LABEL"></span><span>&rarr;</span></a>
+                  </li>
+                </ul>
+              </div>
+
+              <div ng-show="wizard.active(4)">
+                <fieldset>
+                  <div class="form-group">
+                    <label translate="REGISTER.COMPANY.NAME-LABEL"></label>
+                    <input class="form-control" type="text" name="companyname" ng-minlength="3" ng-maxlength="30" placeholder="{{'REGISTER.COMPANY.NAME-PLACEHOLDER' | translate}}" ng-model="vm.user.companyname"
+                    />
+                    <p class="text-danger" ng-show="(userForm.companyname.$error.minlength || userForm.companyname.$error.maxlength) && userForm.companyname.$dirty" translate="REGISTER.COMPANY.ERROR-INVALID-NAME"></p>
+                    <p class="text-danger" ng-show="userForm.companyname.$dirty && userForm.companyname.$error.required" translate="REGISTER.COMPANY.ERROR-NAME-REQUIRED"></p>
+                  </div>
+                  <div class="form-group">
+                    <label translate="REGISTER.COMPANY.EMAIL-LABEL"></label>
+                    <input class="form-control" ng-pattern="/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/" type="text" name="companyemail"
+                      ng-maxlength="30" placeholder="{{'REGISTER.COMPANY.EMAIL-PLACEHOLDER' | translate}}" ng-model="vm.user.compnayemail" />
+                    <p class="text-danger" ng-show="( userForm.companyemail.$error.minlength || userForm.companyemail.$error.maxlength ) && userForm.companyemail.$dirty" translate="REGISTER.COMPANY.ERROR-INVALID-EMAIL"></p>
+                    <p class="text-danger" ng-show="userForm.companyemail.$dirty && userForm.companyemail.$error.required"  translate="REGISTER.COMPANY.ERROR-NAME-REQUIRED"></p>
+                  </div>
+
+                  <div class="form-group">
+                    <label translate="REGISTER.COMPANY.DESIGNATION"></label>
+                    <input class="form-control" type="text" name="designation" ng-minlength="3" ng-maxlength="30" placeholder="{{'REGISTER.COMPANY.DESIGNATION-PLACEHOLDER' | translate}}" ng-model="vm.user.designation"
+                    />
+                    <p class="text-danger" ng-show="(userForm.designation.$error.minlength || userForm.designation.$error.maxlength ) && userForm.designation.$dirty" translate="REGISTER.COMPANY.ERROR-INVALID-DESIGNATION"></p>
+                    <p class="text-danger" ng-show="userForm.designation.$dirty && userForm.designation.$error.required" translate="REGISTER.COMPANY.ERROR-DESIGNATION-REQUIRED"></p>
+                  </div>
+                </fieldset>
+                <ul class="pager">
+                  <li class="previous">
+                    <a href="" ng-click="wizard.go(3)"><span>&larr; <span translate="REGISTER.PREVIOUS-LABEL"></span></span></a>
+                  </li>
+                  <li class="next"><a href="" ng-click="wizard.go(5)"><span translate="REGISTER.NEXT-LABEL"></span><span>&rarr;</span></a>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- END Wizard Step inputs-->
+              <!-- START Wizard Step inputs-->
+              <div ng-show="wizard.active(5)">
+                <div class="jumbotron m0">
+                  <h3 class="mt0" translate="REGISTER.DONE.MESSAGE-DONE-TITLE"></h3>
+                  <p translate="REGISTER.DONE.MESSAGE-DONE"></p>
+                  <div class="clearfix">
+                      <div class="checkbox c-checkbox pull-left mt0">
+                         <label>
+                            <input type="checkbox" required="" name="account_agreed" ng-model="vm.user.agreed" />
+                            <span class="fa fa-check"></span>
+                            {{'REGISTER.DONE.TERMS-LABEL' | translate}}
+                            <a href="#" translate="REGISTER.DONE.TERMS-CONTENT"></a>
+                         </label>
+                      </div>
+                   </div>
+                   <div class="text-danger" ng-show="userForm.account_agreed.$dirty && userForm.account_agreed.$error.required" translate="REGISTER.DONE.ERROR-TERMS-AGGREE"></div>
+                   <div class="alert alert-danger text-center" ng-show="vm.user.authMsg">{{vm.user.authMsg}}</div>
+                   <p class="m0">
+                    <button class="btn btn-info" type="submit"  ng-click="vm.register(vm.user);" translate="REGISTER.DONE.REGISTER-NOW-BUTTON"></button>
+                  </p>
+                </div>
+                <ul class="pager">
+                  <li class="previous">
+                    <a href="" ng-click="vm.user.seller ?wizard.go(4):wizard.go(3)"><span>&larr; <span translate="REGISTER.PREVIOUS-LABEL"></span></span></a>
+                  </li>
+                </ul>
+              </div>
+              <!-- END Wizard Step inputs-->
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- END panel-->
+    </div>
+  </div>
+  <!-- END row-->
+  <!-- START panel-->
+
+</div>
+<!-- END panel-->

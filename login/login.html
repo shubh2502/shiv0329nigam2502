@@ -1,0 +1,63 @@
+<div class="block-center center-block mt-xl wd-xl row" ng-controller="loginController as login">
+  <!-- START panel-->
+  <div class="panel panel-dark panel-flat">
+    <div class="panel-heading text-center" style="height: 90px;">
+      <a href="#">
+          <img class="block-center img-rounded" src="img/CM.png" style="HEIGHT: 120px;
+          margin-top: -23px;" alt="Image" />
+      </a>
+    </div>
+    <div class="panel-body">
+      <p class="text-center pv" translate="LOGIN.FORM-TITLE"></p>
+      <form class="form-validate mb-lg" role="form" ng-submit="login.login();login.loginForm.$dirty = false;" name="login.loginForm" novalidate="">
+        <div class="form-group has-feedback">
+          <input class="form-control" id="exampleInputEmail1"  ng-pattern="/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/" type="email" name="account_email" placeholder="{{ 'LOGIN.PLACEHOLDER-EMAIL' | translate }}" autocomplete="on"
+            ng-model="login.account.email" required="" />
+          <span class="fa fa-envelope form-control-feedback text-muted"></span>
+          <span class="text-danger" ng-show="login.loginForm.account_email.$dirty &&  login.loginForm.account_email.$error.required" translate="LOGIN.ERROR-MESSAGE-REQUIRED"></span>
+          <span class="text-danger" ng-show="login.loginForm.account_email.$dirty &&  login.loginForm.account_email.$error.email" translate="LOGIN.ERROR-MESSAGE-VALID"></span>
+        </div>
+        <div class="form-group has-feedback">
+          <input class="form-control" id="exampleInputPassword1" type="password" name="account_password" placeholder="{{'LOGIN.PLACEHOLDER-PASSWORD' | translate}}" ng-model="login.account.password"
+            required="" maxlength="15" />
+          <span class="fa fa-lock form-control-feedback text-muted"></span>
+          <span class="text-danger" ng-show="login.loginForm.account_password.$dirty &&  login.loginForm.account_password.$error.required" translate="LOGIN.ERROR-MESSAGE-REQUIRED"></span>
+        </div>
+        <div class="clearfix">
+          <!-- <div class="checkbox c-checkbox pull-left mt0"> -->
+            <!-- <label>
+              <input type="checkbox" value="" name="account_remember" ng-model="login.account.remember" />
+              <span class="fa fa-check"></span>{{"LOGIN.REMEMBER-ME" | translate}}
+            </label>
+          </div> -->
+          <span class="text-danger" ng-show="login.forgetClick &&  login.loginForm.account_email.$error.required">Please enter your registered email address.</span>          
+          <!-- class="pull-right" -->
+          <div style="text-align: center;">
+            <a class="text-muted" ng-click="login.moveToForgetPassword(login.loginForm.account_email.$error.required)" ><span translate="LOGIN.FORGOT-PASSWORD"></span></a>
+          </div>
+        </div>
+
+        <button class="btn btn-block btn-primary mt-lg" translate="LOGIN.LOGIN-LABEL" type="submit"></button>
+      </form>
+      <div class="alert alert-danger text-center" ng-show="login.authMsg">{{login.authMsg}}</div>
+      
+      <button class="loginBtn loginBtn--facebook" style="width: 288px;height: 32px;text-align: center;font-weight: 400;line-height: 1.42857143;margin-top: 15px !important;font-size: 13px;" scope="public_profile,email"
+      ng-click="login.checkLoginState();">
+          Login with Facebook
+        </button>
+        <button class="loginBtn loginBtn--google" style="width: 288px;height: 32px;text-align: center;font-weight: 400;line-height: 1.42857143;font-size: 13px;" ng-click="login.handleSignInClick()">
+          Login with Google
+        </button>
+      <p class="pt-lg text-center" translate="LOGIN.SIGNUP-LABEL"></p><a class="btn btn-block btn-default" ui-sref="signup" translate="LOGIN.REGISTER-LABEL"></a>
+    </div>
+  </div>
+  <!-- END panel-->
+  <div class="p-lg text-center">
+    <span>&copy;</span>
+    <span ng-bind="app.year"></span>
+    <span>-</span>
+    <span ng-bind="app.name"></span>
+    <br/>
+    <span ng-bind="app.description"></span>
+  </div>
+</div>
